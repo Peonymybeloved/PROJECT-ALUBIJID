@@ -1,52 +1,27 @@
-const dataStore = require("../models/data.store");
+const { documents } = require("../models/data.store");
 
-let nextId = 1;
+let counter = 1;
 
-function createDocument(data) {
+exports.createDocument = (data) => {
   const doc = {
-    id: nextId++,
-    dtn: `DTN-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-    title: data.title,
-    createdAt: new Date().toISOString()
+    id: counter++,
+    dtn: `DTN-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    status: "Pending",
+    ...data,
   };
-  dataStore.documents.push(doc);
+
+  documents.push(doc);
   return doc;
-}
-
-function getAllDocuments() {
-  return dataStore.documents;
-}
-
-function getDocumentById(id) {
-  const docId = parseInt(id);
-  return dataStore.documents.find(d => d.id === docId);
-}
-
-function deleteDocument,
-  updateDocumentStatus(id) {
-  const docId = parseInt(id);
-  const index = dataStore.documents.findIndex(d => d.id === docId);
-  if (index === -1) {
-    throw new Error("Document not found");
-  }
-  dataStore.documents.splice(index, 1);
-}
-
-function updateDocumentStatus(id, status) {
-  const doc = getDocumentById(id);
-  if (!doc) {
-    throw new Error("Document not found");
-  }
-  doc.status = status;
-  return doc;
-}
-
-module.exports = {
-  createDocument,
-  getAllDocuments,
-  getDocumentById,
-  deleteDocument,
-  updateDocumentStatus
 };
 
+exports.getAllDocuments = () => documents;
+
+exports.getDocumentById = (id) => documents.find(d => d.id === parseInt(id, 10));
+
+exports.deleteDocument = (id) => {
+  const index = documents.findIndex(d => d.id === parseInt(id, 10));
+  if (index === -1) throw new Error("Not found");
+
+  return documents.splice(index, 1);
+};
 

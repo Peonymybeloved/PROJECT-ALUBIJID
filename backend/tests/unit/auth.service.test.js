@@ -2,7 +2,6 @@ const authService = require("../../services/auth.service");
 const dataStore = require("../../models/data.store");
 
 describe("Auth Service Unit Tests", () => {
-
   test("Should login with valid credentials", () => {
     const user = authService.login("admin@test.com", "1234");
 
@@ -18,5 +17,5 @@ describe("Auth Service Unit Tests", () => {
       authService.login("wrong@test.com", "wrong");
     }).toThrow("Invalid credentials");
   });
-
 });
+

@@ -1,10 +1,10 @@
-import express from "express";
-import cors from "cors";
+const express = require("express");
+const cors = require("cors");
 
-import authRoutes from "./routes/auth.routes.js";
-import documentRoutes from "./routes/document.routes.js";
-import workflowRoutes from "./routes/workflow.routes.js";
-import searchRoutes from "./routes/search.routes.js";
+const authRoutes = require("./routes/auth.routes");
+const documentRoutes = require("./routes/document.routes");
+const workflowRoutes = require("./routes/workflow.routes");
+const searchRoutes = require("./routes/search.routes");
 
 const app = express();
 
@@ -20,7 +20,5 @@ app.get("/api/ping", (req, res) => {
   res.status(200).json({ message: "Server running" });
 });
 
-export default app;
-
-
+module.exports = app;
 

@@ -3,10 +3,8 @@ const documentService = require("../../services/document.service");
 const dataStore = require("../../models/data.store");
 
 describe("Search Service Unit Tests", () => {
-
   beforeEach(() => {
     dataStore.documents.length = 0;
-
     documentService.createDocument({ title: "Finance Report" });
     documentService.createDocument({ title: "HR Memo" });
   });
@@ -21,7 +19,6 @@ describe("Search Service Unit Tests", () => {
   test("Should find document by DTN", () => {
     const docs = dataStore.documents;
     const dtn = docs[0].dtn;
-
     const results = searchService.searchDocuments(dtn);
 
     expect(results.length).toBe(1);
@@ -32,5 +29,5 @@ describe("Search Service Unit Tests", () => {
 
     expect(results.length).toBe(0);
   });
-
 });
+

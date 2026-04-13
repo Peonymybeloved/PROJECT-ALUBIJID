@@ -1,54 +1,33 @@
 const documentService = require("../../services/document.service");
+const workflowService = require("../../services/workflow.service");
 const dataStore = require("../../models/data.store");
 
-describe("Document Service Unit Tests", () => {
-
+describe("Workflow Service Unit Tests", () => {
   beforeEach(() => {
-    dataStore.documents.length = 0; // reset
+    dataStore.documents.length = 0;
   });
 
-  test("Should create document with DTN", () => {
-    const doc = documentService.createDocument({ title: "Test Doc" });
+  test("Should assign document and set Processing status", () => {
+    const doc = documentService.createDocument({ title: "Workflow Doc" });
+    const assigned = workflowService.assignDocument(doc.id, 2);
 
-    expect(doc).toHaveProperty("id");
-    expect(doc).toHaveProperty("dtn");
-    expect(doc.status).toBe("Pending");
+    expect(assigned.status).toBe("Processing");
+    expect(assigned.assignedTo).toBe(2);
   });
 
-  test("Should return all documents", () => {
-    documentService.createDocument({ title: "Doc1" });
+  test("Should approve document", () => {
+    const doc = documentService.createDocument({ title: "Workflow Doc" });
+    const approved = workflowService.approveDocument(doc.id);
 
-    const docs = documentService.getAllDocuments();
-
-    expect(docs.length).toBe(1);
+    expect(approved.status).toBe("Approved");
   });
 
-  test("Should get document by ID", () => {
-    const doc = documentService.createDocument({ title: "Doc2" });
-
-    const found = documentService.getDocumentById(doc.id);
-
-    expect(found.title).toBe("Doc2");
+  test("Should throw when assigning missing document", () => {
+    expect(() => workflowService.assignDocument(999, 2)).toThrow("Document not found");
   });
 
-  test("Should return undefined for invalid ID", () => {
-    const result = documentService.getDocumentById(999);
-
-    expect(result).toBeUndefined();
+  test("Should throw when approving missing document", () => {
+    expect(() => workflowService.approveDocument(999)).toThrow("Document not found");
   });
-
-  test("Should delete document", () => {
-    const doc = documentService.createDocument({ title: "Delete Me" });
-
-    documentService.deleteDocument(doc.id);
-
-    expect(dataStore.documents.length).toBe(0);
-  });
-
-  test("Should throw error when deleting non-existent doc", () => {
-    expect(() => {
-      documentService.deleteDocument(999);
-    }).toThrow("Not found");
-  });
-
 });
+

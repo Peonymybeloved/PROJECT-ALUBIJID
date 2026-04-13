@@ -18,6 +18,7 @@ describe("Workflow API", () => {
       .send({ employeeId: 2 });
 
     expect(res.body.status).toBe("Processing");
+    expect(res.body.assignedTo).toBe(2);
   });
 
   test("Approve document", async () => {
@@ -27,3 +28,4 @@ describe("Workflow API", () => {
     expect(res.body.status).toBe("Approved");
   });
 });
+

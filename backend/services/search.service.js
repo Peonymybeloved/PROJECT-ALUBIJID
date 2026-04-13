@@ -1,8 +1,10 @@
 const { documents } = require("../models/data.store");
 
 exports.searchDocuments = (query) => {
-  return documents.filter(d =>
-    d.dtn.includes(query) ||
-    d.title?.toLowerCase().includes(query.toLowerCase())
+  const normalized = String(query || "").toLowerCase();
+  return documents.filter(doc =>
+    String(doc.dtn).toLowerCase().includes(normalized) ||
+    String(doc.title || "").toLowerCase().includes(normalized)
   );
 };
+

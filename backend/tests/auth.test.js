@@ -1,7 +1,5 @@
-import { describe, test, expect } from "vitest";
-import request from "supertest";
-
-const app = (await import("../app.js")).default;
+const request = require("supertest");
+const app = require("../app");
 
 describe("Auth API", () => {
   test("Valid login", async () => {
@@ -21,3 +19,4 @@ describe("Auth API", () => {
     expect(res.statusCode).toBe(401);
   });
 });
+
