@@ -1,5 +1,5 @@
 const searchService = require("../../services/search.service");
-const documentService = require("../../services/document.service");
+const documentService = require("../../services/CRIDDdocument.service");
 const dataStore = require("../../models/data.store");
 
 describe("Search Service Unit Tests", () => {

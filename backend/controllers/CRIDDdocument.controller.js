@@ -1,4 +1,4 @@
-const service = require("../services/document.service");
+const service = require("../services/CRIDDdocument.service");
 
 exports.create = (req, res) => {
   const doc = service.createDocument(req.body);

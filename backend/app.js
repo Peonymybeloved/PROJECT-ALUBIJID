@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 
 const authRoutes = require("./routes/auth.routes");
-const documentRoutes = require("./routes/document.routes");
-const workflowRoutes = require("./routes/workflow.routes");
+const documentRoutes = require("./routes/CRIDDdocument.routes");
+const workflowRoutes = require("./routes/assignapprove.routes");
 const searchRoutes = require("./routes/search.routes");
 
 const app = express();

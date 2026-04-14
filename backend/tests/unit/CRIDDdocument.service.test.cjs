@@ -1,4 +1,4 @@
-const documentService = require("../../services/document.service");
+const documentService = require("../../services/CRIDDdocument.service");
 const dataStore = require("../../models/data.store");
 
 describe("Document Service Unit Tests", () => {

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const controller = require("../controllers/document.controller");
+const controller = require("../controllers/CRIDDdocument.controller");
 
 router.post("/", controller.create);
 router.get("/", controller.getAll);
