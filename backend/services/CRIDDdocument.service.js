@@ -2,23 +2,23 @@ const { documents } = require("../models/data.store");
 
 let counter = 1;
 
-exports.createDocument = (data) => {
+exports.createDocument = (data) => {// Creates a new document and generates unique dtn, id and status. Stores into array
   const doc = {
     id: counter++,
     dtn: `DTN-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     status: "Pending",
     ...data,
   };
-
   documents.push(doc);
   return doc;
 };
 
-exports.getAllDocuments = () => documents;
 
-exports.getDocumentById = (id) => documents.find(d => d.id === parseInt(id, 10));
+exports.getAllDocuments = () => documents; //Returns all stored documents
 
-exports.deleteDocument = (id) => {
+exports.getDocumentById = (id) => documents.find(d => d.id === parseInt(id, 10)); //Finds a doc based on the id
+
+exports.deleteDocument = (id) => { //Deletes document once deleted or completed.
   const index = documents.findIndex(d => d.id === parseInt(id, 10));
   if (index === -1) throw new Error("Not found");
 
